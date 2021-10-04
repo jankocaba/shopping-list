@@ -30,11 +30,13 @@
 }
 
 .container {
-  max-width: 70%;
-  margin: auto;
+  margin: 0 15px;
+}
 
-  li {
-    list-style: none;
+@media (min-width: 500px) {
+  .container {
+    max-width: 70%;
+    margin: auto;
   }
 }
 </style>

@@ -1,21 +1,29 @@
 <template>
   <div class="item" :class="{ 'is-editing': item === editedItem }">
-    <div class="item-title">
-      <input type="checkbox" v-model="picked" @change="toggle" />
-      <p @dblclick="editItem()">
-        {{ item.name }}<span v-if="showListName">({{ item.listName }})</span>
-      </p>
-      <span @click="removeItem()">✖️</span>
+    <div class="item-inner">
+      <input
+        class="item-input"
+        type="text"
+        v-model="item.name"
+        v-todo-focus="item === editedItem"
+        @blur="doneEdit()"
+        @keyup.enter="doneEdit()"
+        @keyup.esc="cancelEdit()"
+      />
+      <div class="item-title">
+        <input
+          class="item-checkbox"
+          type="checkbox"
+          v-model="picked"
+          @change="toggle"
+        />
+        <span @click="editItem()">
+          {{ item.name }}
+          <span v-if="showListName"> ({{ item.list.name }})</span>
+        </span>
+      </div>
+      <span class="item-remove" @click="removeItem()">✖️</span>
     </div>
-    <input
-      class="edit"
-      type="text"
-      v-model="item.name"
-      v-todo-focus="item === editedItem"
-      @blur="doneEdit()"
-      @keyup.enter="doneEdit()"
-      @keyup.esc="cancelEdit()"
-    />
   </div>
 </template>
 
@@ -74,23 +82,28 @@ export default {
 
 <style lang="scss" scoped>
 .item {
+  &-inner {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &-title {
     display: flex;
     align-items: center;
-
-    p {
-      margin: 0;
-      font-size: 24px;
-    }
+    font-size: 24px;
   }
 
-  .edit {
+  &-checkbox {
+    margin-right: 10px;
+  }
+
+  &-input {
     display: none;
     height: 33px;
   }
 
   &.is-editing {
-    .edit {
+    .item-input {
       display: block;
     }
 

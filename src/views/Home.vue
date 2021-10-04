@@ -2,27 +2,29 @@
   <div class="home">
     <div class="container">
       <h1>Shopping list</h1>
-      <p v-if="!add">Add list <span @click="add = true">➕</span></p>
+      <p @click="add = true" v-if="!add">Add list ➕</p>
       <input
         v-if="add"
-        class="new-list"
-        placeholder="List"
+        class="input"
+        placeholder="New list"
         v-model="newList"
         @keyup.enter="addList"
         @blur="add = false"
       />
-      <List v-for="list in $store.state.lists" :key="list.id" :list="list" />
+      <div class="list">
+        <Card v-for="list in $store.state.lists" :key="list.id" :list="list" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import List from "@/components/List";
+import Card from "@/components/Card";
 
 export default {
   name: "Home",
   components: {
-    List,
+    Card,
   },
   data() {
     return {
@@ -51,3 +53,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.home {
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+</style>
