@@ -68,7 +68,7 @@ export default {
         (item) => item.list.id === this.list.id
       );
       if (this.done) {
-        items = this.$store.state.items.filter((item) => item.done === true);
+        items = items.filter((item) => item.done === true);
       }
       return items;
     },
@@ -86,7 +86,7 @@ export default {
         id: this.$store.state.items.length
           ? Math.max(...this.$store.state.items.map((l) => l.id)) + 1
           : 0,
-        done: true,
+        done: false,
         list: this.list,
       });
       this.newItem = "";
