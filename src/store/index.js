@@ -48,7 +48,7 @@ export default new Vuex.Store({
   actions: {
     removeList: ({ commit, state }, data) => {
       state.items
-        .filter((item) => item.listId === data.id)
+        .filter((item) => item.list.id === data.id)
         .forEach((item) => {
           commit("removeItem", item);
         });
